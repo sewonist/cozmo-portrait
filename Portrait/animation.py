@@ -1,10 +1,7 @@
 import cozmo
 from time import sleep
-from flower import Flower
-from cube import Cube
-from circle import Circle
 
-class Portrait:
+class Animation:
     def __init__(self, robot: cozmo.robot.Robot):
         self.cozmo = robot
         self.lift_up = 0
@@ -13,18 +10,15 @@ class Portrait:
         self.head_down = 0
         self.go_fast = 0
         self.go_slow = 1
-        self.animations = [Cube(self.cozmo),
-                           Circle(self.cozmo),
-                           Flower(self.cozmo)]
 
-    def Draw(self, i: int):
-        self.animations[i].Draw()
+    def Draw(self):
+        pass
 
     def LiftUp(self):
         self.lift_up = 1
         self.lift_down = 0
         self.update_lift()
-        sleep(0.1)
+        sleep(0.2)
         self.lift_up = 0
         self.update_lift()
 
@@ -32,7 +26,7 @@ class Portrait:
         self.lift_up = 0
         self.lift_down = 1
         self.update_lift()
-        sleep(0.1)
+        sleep(0.2)
         self.lift_down = 0
         self.update_lift()
 
@@ -47,7 +41,7 @@ class Portrait:
         self.update_lift()
 
     def update_lift(self):
-        lift_speed = self.pick_speed(8, 3, 1)
+        lift_speed = self.pick_speed(8, 3, 2)
         lift_vel = (self.lift_up - self.lift_down) * lift_speed
         self.cozmo.move_lift(lift_vel)
 
